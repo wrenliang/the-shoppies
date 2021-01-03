@@ -1,0 +1,9 @@
+.ResultsList {
+    background-color: brown;
+}
+
+.GridContainer {
+    display: grid;
+    gap: 30px 0px;
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+}

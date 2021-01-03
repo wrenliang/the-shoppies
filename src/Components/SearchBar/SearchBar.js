@@ -10,8 +10,7 @@ class SearchBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchText: "",
-
+            searchText: ""
         };
 
         this.makeAPICall = this.makeAPICall.bind(this);
@@ -31,7 +30,7 @@ class SearchBar extends React.Component {
 
         console.log(data);
 
-        this.props.updateListHandler(data);
+        this.props.updateListHandler(this.state.searchText, data.Search);
     }
 
     async makeAPICall(apiKey, searchParam) {
