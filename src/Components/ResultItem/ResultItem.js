@@ -26,7 +26,7 @@ class ResultItem extends React.Component {
 
     nominateClicked() {
         console.log(`Movie: ${this.props.movie.imdbID} clicked`);
-        this.props.addNominationHandler(this.props.movie.imdbID);
+        this.props.addNominationHandler(this.props.movie.imdbID, this.props.movie);
         this.forceUpdate();
     }
 

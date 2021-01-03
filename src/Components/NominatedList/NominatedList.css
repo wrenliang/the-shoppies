@@ -1,0 +1,28 @@
+.NominatedList {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    width: 35%;
+    background-color: green;
+}
+
+.NominatedListSpacer {
+    height: 100px;
+}
+
+.NominationsListItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.NominationsListImage {
+    width: 150px;
+    height: 234px;
+}
+
+.NominationsListInfo {
+    text-align: center;
+}
