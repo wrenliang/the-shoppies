@@ -50,21 +50,29 @@ class ResultItem extends React.Component {
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center center",
-                filter: "blur(3px) brightness(30%)"
+                filter: "blur(3px) brightness(20%)"
             }
 
-            const contentStyle = {
+            const itemInfoStyle = {
                 position: "relative",
-                zIndex: "2"
+                height: "100%",
+                width: "100%",
+                zIndex: "2",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+
+                color: "#f2eee4"
             }
 
             return (
                 <div className="ResultItem" style={resultItemStyle} onMouseEnter={() => this.toggleHover(true)} onMouseLeave={() => this.toggleHover(false)}>
                     <div className="ResultItemBackgroundImage" style={backgroundImageStyle}></div>
-                    <div style={contentStyle}>
+                    <div className="ResultItemInfo" style={itemInfoStyle}>
                         <h1>{`${this.props.movie.Title} (${this.props.movie.Year})`}</h1>
                         <Button 
-                            variant="primary"
+                            variant="light"
                             type="submit"
                             onClick={() => this.nominateClicked()}
                             disabled={this.props.nominationList.includes(this.props.movie.imdbID)}>{this.props.nominationList.includes(this.props.movie.imdbID) ? `Nominated` : `Nominate`}</Button>
@@ -75,7 +83,7 @@ class ResultItem extends React.Component {
             const resultItemStyle=  {
                 width: "300px",
                 height: "468px",
-                backgroundImage: `url(${this.props.movie.Poster})`,
+                backgroundImage: this.props.movie.Poster === "N/A" ? null : `url(${this.props.movie.Poster})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center center"

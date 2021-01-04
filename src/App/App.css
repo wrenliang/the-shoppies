@@ -3,7 +3,19 @@
   margin: 0;
 }
 
+.navbar {
+  background-color: #faf7ee;
+}
+
+.btn-success {
+  background-color: #1e4b40;
+  border-color: #faf7ee;
+}
+
 .ResultsNominationsContainer {
+  min-height: 300px;
   display: flex;
   flex-direction: row;
+  background-color: black;
+  background: radial-gradient(#2c6356, #1e4b40)
 }

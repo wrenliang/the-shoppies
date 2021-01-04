@@ -1,3 +1,15 @@
 .SearchBar {
-    background-color: black;
+    /* display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center; */
+}
+
+.form-group {
+    width: 100%;
+}
+
+.btn-success {
+    margin-left: 50px;
+    height: 48px;
 }

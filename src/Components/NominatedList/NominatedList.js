@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Row,Button } from 'react-bootstrap';
 
 // Component Dependencies
 
@@ -17,9 +17,9 @@ class NominatedList extends React.Component {
                 <div className="NominationsListItem">
                     <img className="NominationsListImage" src={movie.Poster} alt={`Movie Poster`}></img>
                     <div className="NominationsListInfo">
-                        <h3>{`${movie.Title} (${movie.Year})`}</h3>
-                        <Button onClick={() => (this.props.removeNominationHandler(movie.imdbID, movie))}>Remove</Button>
-                    </div>  
+                        <h2>{`${movie.Title} (${movie.Year})`} <Button variant="danger" onClick={() => (this.props.removeNominationHandler(movie.imdbID, movie))}>Remove</Button></h2> 
+                    </div>
+                    
                 </div>
             );
         });
@@ -31,12 +31,10 @@ class NominatedList extends React.Component {
         if (this.props.showNominations === true) {
             return (
                 <div className="NominatedList">
-                    <div className="NominatedListSpacer"></div>
-                    <h1> 🏆Nominations🏆 </h1>
+                    <h1 className="NominatedListTitle"> 🏆 Your Nominees 🏆 </h1>
                     <div className="NominationsListContainer">
                         {this.nominationItems()}
                     </div>
-                        
                 </div>
             );
         } else {

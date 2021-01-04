@@ -32,14 +32,24 @@ class ResultsList extends React.Component {
     }
 
     render() {
-        return (
-            <div className="ResultsList">
-                <h1>{`Results from '${this.props.searchTerm}'`}</h1>
-                <div className="GridContainer">
-                    {this.searchResults()}
-                </div>  
-            </div>
-        );
+        if (this.props.searchTerm == null || this.props.searchTerm === "") {
+            return (
+                <div className="ResultsList">
+                    <h1 className="ResultsListTitle">{`Search results`}</h1>
+                    <p className="ResultsListSubtitle"> To browse for movies, please provide a query in the search bar above</p>
+                </div>
+            );
+        } else {
+            return (
+                <div className="ResultsList">
+                    <h1 className="ResultsListTitle">{`Results from '${this.props.searchTerm}'`}</h1>
+                    <div className="GridContainer">
+                        {this.searchResults()}
+                    </div>  
+                </div>
+            );
+        }
+        
     }
 }
 

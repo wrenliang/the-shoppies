@@ -1,9 +1,15 @@
 .NominatedList {
-    width: 450px;
+    width: 100%;
+    color:  #faf7ee;
+    /* background-color:#faf7ee; */
+    border-left: solid;
 }
 
-.NominatedListSpacer {
-    /*height: 100px; */
+.NominatedListTitle {
+    margin-top: 30px;
+    /* margin-right: 30px; */
+    font-weight: 400;
+    text-align: center;
 }
 
 .NominationListContainer {
@@ -15,16 +21,16 @@
 
 .NominationsListItem {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .NominationsListImage {
     margin-left: 10px;
-    width: 100px;
-    height: 156px;
+    width: 300px;
+    height: 468px;
     object-fit: cover;
     object-position: center;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Form} from 'react-bootstrap';
+import {Button, Form, FormFile, Row} from 'react-bootstrap';
 
 // Component Dependencies
 
@@ -16,22 +16,25 @@ class SearchBar extends React.Component {
         this.makeAPICall = this.makeAPICall.bind(this);
     }
 
-    searchTextDidChange(event) {
+    async searchTextDidChange(event) {
         console.log(event);
 
         console.log(`Text changed to: ${event.target.value}`);
         this.setState({searchText: event.target.value});
+
+        const data = await this.makeAPICall(`9f05da9b`, event.target.value);
+        this.props.updateListHandler(event.target.value, data.Search);
     }
 
-    async searchButtonClicked() {
-        console.log("button clicked");
+    // async searchButtonClicked() {
+    //     console.log("button clicked");
 
-        const data = await this.makeAPICall(`9f05da9b`, this.state.searchText);
+    //     const data = await this.makeAPICall(`9f05da9b`, this.state.searchText);
 
-        console.log(data);
+    //     console.log(data);
 
-        this.props.updateListHandler(this.state.searchText, data.Search);
-    }
+    //     this.props.updateListHandler(this.state.searchText, data.Search);
+    // }
 
     async makeAPICall(apiKey, searchParam) {
         const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchParam}`;
@@ -48,17 +51,15 @@ class SearchBar extends React.Component {
     render() {
         return (
             <div className="SearchBar">
-                <h1>Search Bar</h1>
                 <Form>
                     <Form.Group controlId="formSearchMovies">
-                        <Form.Label>Search Movies</Form.Label>
                         <Form.Control
-                            placeholder="🔎 Enter a movie name"
-                            onChange={this.searchTextDidChange.bind(this)}
-                        />
+                            size="lg"
+                            placeholder="🔎  Search for Movies"
+                            onChange={this.searchTextDidChange.bind(this)}/>
                     </Form.Group>
                 </Form>
-                <Button variant="primary" type="submit" onClick={this.searchButtonClicked.bind(this)}>Search</Button>
+                
             </div>
         )
     }

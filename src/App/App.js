@@ -7,6 +7,7 @@ import SearchBar from '../Components/SearchBar/SearchBar';
 import ResultsList from '../Components/ResultsList/ResultsList';
 import NominatedList from '../Components/NominatedList/NominatedList';
 import FinishedScreen from '../Components/FinishedScreen/FinishedScreen';
+import LandingScreen from '../Components/LandingScreen/LandingScreen';
 
 // CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -52,6 +53,10 @@ class App extends React.Component {
     if (this.state.nominationList.length >= 5) {
       // show warning badge
     } else {
+      if (this.state.nominationList.length === 0) {
+        // pop info badge
+      }
+
       if (!this.state.nominationList.includes(movieID)) {
         this.state.nominationList.push(movieID);
         this.state.nominationMovies.push(movieData);
@@ -101,17 +106,20 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-          <Navbar fixed="top" variant="light" bg="light">
+          <Navbar fixed="top" variant="light">
             <Navbar.Brand> The Shoppies </Navbar.Brand>
             <Navbar.Collapse className="justify-content-end">
               <Button
+                variant="success"
                 onClick={() => this.toggleShowNominations()}>
-                🏆
                 <Badge variant={this.state.nominationList.length >= 5 ? "danger": "light"}> {this.state.nominationList.length} </Badge>
+                🏆
               </Button>
             </Navbar.Collapse>
           </Navbar>
-          <SearchBar updateListHandler={this.updateListHandler}></SearchBar>
+
+          <LandingScreen updateListHandler={this.updateListHandler}></LandingScreen>
+
           <div className="ResultsNominationsContainer">
             <ResultsList 
               searchTerm={this.state.searchTerm}
