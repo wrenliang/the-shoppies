@@ -1,10 +1,12 @@
 import React from 'react';
 import { Navbar, Button, Badge } from 'react-bootstrap';
+import disableScroll from 'disable-scroll';
 
 // Component Dependencies
 import SearchBar from '../Components/SearchBar/SearchBar';
 import ResultsList from '../Components/ResultsList/ResultsList';
 import NominatedList from '../Components/NominatedList/NominatedList';
+import FinishedScreen from '../Components/FinishedScreen/FinishedScreen';
 
 // CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,38 +21,66 @@ class App extends React.Component {
       searchResults: null,
       nominationList: [],
       nominationMovies: [],
-      showNominations: false
+      showNominations: false,
+      showFinishedScreen: false
     }
 
     this.updateListHandler = this.updateListHandler.bind(this);
     this.addNominationHandler = this.addNominationHandler.bind(this);
     this.removeNominationHandler = this.removeNominationHandler.bind(this);
     this.toggleShowNominations = this.toggleShowNominations.bind(this);
+    this.showFinishedScreenSetup = this.showFinishedScreenSetup.bind(this);
+    this.hideFinishedScreenSetup = this.hideFinishedScreenSetup.bind(this);
+  }
+
+  componentDidMount() {
+    this.hideFinishedScreenSetup();
   }
 
   toggleShowNominations() {
     this.setState({
       showNominations: !this.state.showNominations
     });
-
-    console.log('debug');
-    console.log(this.state);
   }
 
   updateListHandler(searchTerm, searchResults) {
     this.setState({searchTerm: searchTerm, searchResults: searchResults});
 
-    console.log(this.state);
   }
 
   addNominationHandler(movieID, movieData) {
-    if (!this.state.nominationList.includes(movieID)) {
-      this.state.nominationList.push(movieID);
-      this.state.nominationMovies.push(movieData);
-      this.forceUpdate();
+    if (this.state.nominationList.length >= 5) {
+      // show warning badge
+    } else {
+      if (!this.state.nominationList.includes(movieID)) {
+        this.state.nominationList.push(movieID);
+        this.state.nominationMovies.push(movieData);
+        this.forceUpdate();
+      }
+
+      if (this.state.nominationList.length === 5) {
+        // show finished screen
+        this.showFinishedScreenSetup();
+      }
     }
-    
-    console.log(this.state.nominationMovies);
+  }
+
+  showFinishedScreenSetup() {
+    this.setState({
+      showFinishedScreen: true
+    });
+
+    window.scrollTo(0, 0);
+    disableScroll.on();
+  }
+
+  hideFinishedScreenSetup() {
+    this.setState({
+      showFinishedScreen: false
+    });
+
+    window.scrollTo(0, 0);
+    disableScroll.off();
   }
 
   removeNominationHandler(movieID, movieData) {
@@ -64,6 +94,8 @@ class App extends React.Component {
     if (movieIndex !== -1) {
       this.state.nominationMovies.splice(movieIndex, 1);
     }
+
+    this.forceUpdate();
   }
 
   render() {
@@ -75,23 +107,29 @@ class App extends React.Component {
               <Button
                 onClick={() => this.toggleShowNominations()}>
                 🏆
-                <Badge variant="light"> {this.state.nominationList.length} </Badge>
+                <Badge variant={this.state.nominationList.length >= 5 ? "danger": "light"}> {this.state.nominationList.length} </Badge>
               </Button>
             </Navbar.Collapse>
           </Navbar>
           <SearchBar updateListHandler={this.updateListHandler}></SearchBar>
-          <ResultsList 
-            searchTerm={this.state.searchTerm}
-            searchResults={this.state.searchResults}
-            nominationList={this.state.nominationList}
-            addNominationHandler={this.addNominationHandler}>
-          </ResultsList>
-          <NominatedList
-            showNominations={this.state.showNominations}
-            removeNominationHandler={this.removeNominationHandler}
-            nominationMovies={this.state.nominationMovies}>
-          </NominatedList>
-          
+          <div className="ResultsNominationsContainer">
+            <ResultsList 
+              searchTerm={this.state.searchTerm}
+              searchResults={this.state.searchResults}
+              nominationList={this.state.nominationList}
+              addNominationHandler={this.addNominationHandler}>
+            </ResultsList>
+            <NominatedList
+              showNominations={this.state.showNominations}
+              removeNominationHandler={this.removeNominationHandler}
+              nominationMovies={this.state.nominationMovies}>
+            </NominatedList>
+            <FinishedScreen
+              showFinishedScreen={this.state.showFinishedScreen}
+              dismissScreenHandler={this.hideFinishedScreenSetup}
+              nominationMovies={this.state.nominationMovies}>
+            </FinishedScreen>
+          </div>
       </div>
     );
   }

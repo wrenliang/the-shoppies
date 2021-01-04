@@ -18,9 +18,9 @@ class ResultItem extends React.Component {
         this.nominateClicked = this.nominateClicked.bind(this);
     }
 
-    toggleHover() {
+    toggleHover(state) {
         this.setState({
-            isHovered: !this.state.isHovered
+            isHovered: state
         });
     }
 
@@ -46,7 +46,10 @@ class ResultItem extends React.Component {
                 zIndex: "1",
                 width: "300px",
                 height: "468px",
-                backgroundImage: `url(${this.props.movie.Poster})`,
+                backgroundImage: this.props.movie.Poster === "N/A" ? null : `url(${this.props.movie.Poster})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center center",
                 filter: "blur(3px) brightness(30%)"
             }
 
@@ -56,7 +59,7 @@ class ResultItem extends React.Component {
             }
 
             return (
-                <div className="ResultItem" style={resultItemStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+                <div className="ResultItem" style={resultItemStyle} onMouseEnter={() => this.toggleHover(true)} onMouseLeave={() => this.toggleHover(false)}>
                     <div className="ResultItemBackgroundImage" style={backgroundImageStyle}></div>
                     <div style={contentStyle}>
                         <h1>{`${this.props.movie.Title} (${this.props.movie.Year})`}</h1>
@@ -72,11 +75,14 @@ class ResultItem extends React.Component {
             const resultItemStyle=  {
                 width: "300px",
                 height: "468px",
-                backgroundImage: `url(${this.props.movie.Poster})`
+                backgroundImage: `url(${this.props.movie.Poster})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center center"
             }
 
             return (
-                <div className="ResultItem" style={resultItemStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+                <div className="ResultItem" style={resultItemStyle} onMouseEnter={() => this.toggleHover(true)} onMouseLeave={() => this.toggleHover(false)}>
                 </div>
             );
         }

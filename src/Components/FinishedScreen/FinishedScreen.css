@@ -1,0 +1,43 @@
+.FinishedScreen {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.FinishedScreenBackground {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: black;
+    opacity: 50%;
+}
+
+.FinishedScreenMovieList {
+    /* display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; */
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+}
+
+.FinishedScreenMovieItem {
+    background-color: beige;
+}
+
+.FinishedScreenMovieItemImage {
+    width: 150px;
+    height: 234px;
+    object-fit: cover;
+    object-position: center;
+}
