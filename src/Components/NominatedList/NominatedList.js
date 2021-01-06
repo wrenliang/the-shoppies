@@ -17,7 +17,7 @@ class NominatedList extends React.Component {
                 <div className="NominationsListItem">
                     <img className="NominationsListImage" src={movie.Poster} alt={`Movie Poster`}></img>
                     <div className="NominationsListInfo">
-                        <h2>{`${movie.Title} (${movie.Year})`} <Button variant="danger" onClick={() => (this.props.removeNominationHandler(movie.imdbID, movie))}>Remove</Button></h2> 
+                        <h4>{`${movie.Title} (${movie.Year})`} <Button variant="danger" onClick={() => (this.props.removeNominationHandler(movie.imdbID, movie))}>Remove</Button></h4> 
                     </div>
                     
                 </div>

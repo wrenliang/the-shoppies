@@ -16,7 +16,7 @@ class FinishedScreen extends React.Component {
            return (
                <div className="FinishedScreenMovieItem">
                    <img className="FinishedScreenMovieItemImage" src={movie.Poster} alt={`Movie Poster`}></img>
-                   <h3 className="FinishedScreenMovieItemText">{`${movie.Title} (${movie.Year})`}</h3>
+                   <h4 className="FinishedScreenMovieItemText">{`${movie.Title} (${movie.Year})`}</h4>
                </div>
            ) 
         });
@@ -29,10 +29,11 @@ class FinishedScreen extends React.Component {
             return (
                 <div className="FinishedScreen">
                     <div className="FinishedScreenBackground"></div>
+                    <h1 className="FinishedScreenTitle">Your Nominees for the Shoppies Movie Awards are...</h1>
                     <div className="FinishedScreenMovieList">
                         {this.nominatedMovies()}
                     </div>
-                    <Button onClick={() => this.props.dismissScreenHandler()}> Dismiss View </Button>
+                    <Button variant="secondary" onClick={() => this.props.dismissScreenHandler()}> Continue Browsing </Button>
                 </div>
             )
         } else {
