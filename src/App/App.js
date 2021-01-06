@@ -3,7 +3,6 @@ import { Navbar, Button, Badge, Toast } from 'react-bootstrap';
 import disableScroll from 'disable-scroll';
 
 // Component Dependencies
-import SearchBar from '../Components/SearchBar/SearchBar';
 import ResultsList from '../Components/ResultsList/ResultsList';
 import NominatedList from '../Components/NominatedList/NominatedList';
 import FinishedScreen from '../Components/FinishedScreen/FinishedScreen';
