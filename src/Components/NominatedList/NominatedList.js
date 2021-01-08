@@ -14,7 +14,7 @@ class NominatedList extends React.Component {
     nominationItems = () => {
         const list = this.props.nominationMovies.map((movie, index) => {
             return (
-                <div className="NominationsListItem">
+                <div className="NominationsListItem" key={index}>
                     <img className="NominationsListImage" src={movie.Poster} alt={`Movie Poster`}></img>
                     <div className="NominationsListInfo">
                         <h4>{`${movie.Title} (${movie.Year})`} <Button variant="danger" onClick={() => (this.props.removeNominationHandler(movie.imdbID, movie))}>Remove</Button></h4> 

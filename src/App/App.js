@@ -63,52 +63,40 @@ class App extends React.Component {
     }
   }
 
-  toggleShowNominations() {
-    this.setState({
-      showNominations: !this.state.showNominations
-    });
-  }
-
-  updateListHandler(searchTerm, searchResults) {
-    this.setState({searchTerm: searchTerm, searchResults: searchResults});
-  }
-
+  // Callback Handler for child component
   addNominationHandler(movieID, movieData) {
     if (this.state.nominationList.length >= 5) {
       this.displayMaximumToast();
-    } else { 
+    } else if (!this.state.nominationList.includes(movieID)) {
+      this.state.nominationList.push(movieID);
+      this.state.nominationMovies.push(movieData);
+
+      // Update localStorage
+      localStorage.setItem('nominationCache', JSON.stringify({
+        nominationList: this.state.nominationList,
+        nominationMovies: this.state.nominationMovies
+      }));
+
       this.displayToggleToast();
+      this.forceUpdate();
 
-      if (!this.state.nominationList.includes(movieID)) {
-        this.state.nominationList.push(movieID);
-        this.state.nominationMovies.push(movieData);
-
-        // Update localStorage
-        localStorage.setItem('nominationCache', JSON.stringify({
-          nominationList: this.state.nominationList,
-          nominationMovies: this.state.nominationMovies
-        }));
-
-        this.forceUpdate();
-      }
-
+      // Change to finished screen state if nominations full
       if (this.state.nominationList.length === 5) {
-        // show finished screen
         this.showFinishedScreenSetup();
       }
     }
   }
 
+  // Callback Handler for child component
   removeNominationHandler(movieID, movieData) {
-    const listIndex = this.state.nominationList.indexOf(movieID);
-    const movieIndex = this.state.nominationMovies.indexOf(movieData);
+    const nListIndex = this.state.nominationList.indexOf(movieID);
+    const nMoviesIndex = this.state.nominationMovies.indexOf(movieData);
 
-    if (listIndex !== -1) {
-      this.state.nominationList.splice(listIndex, 1);
+    if (nListIndex !== -1) {
+      this.state.nominationList.splice(nListIndex, 1);
     }
-
-    if (movieIndex !== -1) {
-      this.state.nominationMovies.splice(movieIndex, 1);
+    if (nMoviesIndex !== -1) {
+      this.state.nominationMovies.splice(nMoviesIndex, 1);
     }
 
     // Update localStorage
@@ -118,6 +106,18 @@ class App extends React.Component {
     }));
 
     this.forceUpdate();
+  }
+
+  // Callback Handler for child component
+  updateListHandler(searchTerm, searchResults) {
+    this.setState({searchTerm: searchTerm, searchResults: searchResults});
+  }
+
+  // --- UI Convenience Functions --- 
+  toggleShowNominations() {
+    this.setState({
+      showNominations: !this.state.showNominations
+    });
   }
 
   showFinishedScreenSetup() {
@@ -173,6 +173,7 @@ class App extends React.Component {
       showCacheToast: false
     });
   }
+  // --- UI Convenience Functions --- 
 
   render() {
     return (
@@ -209,8 +210,6 @@ class App extends React.Component {
           </div>
 
           <LandingScreen updateListHandler={this.updateListHandler}></LandingScreen>
-          
-
           
 
           <div className="ResultsNominationsContainer">

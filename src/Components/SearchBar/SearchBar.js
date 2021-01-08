@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Form, FormFile, Row} from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 // Component Dependencies
 
@@ -9,32 +9,35 @@ import './SearchBar.css';
 class SearchBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            searchText: ""
-        };
 
+        this.debounce = this.debounce.bind(this);
+        this.searchTextDidChange = this.searchTextDidChange.bind(this);
         this.makeAPICall = this.makeAPICall.bind(this);
+
+        // Create debounced function for searchbar
+        this.debouncedSearchTextDidChange = this.debounce(this.searchTextDidChange, 200);
     }
 
-    async searchTextDidChange(event) {
-        console.log(event);
+    debounce(func, delay) {
+        // lexically scoped to debouncedFunction
+        let timeout;
 
-        console.log(`Text changed to: ${event.target.value}`);
-        this.setState({searchText: event.target.value});
+        return function debouncedFunction(...args) {
+            const runMyFunc = () => {
+                clearTimeout(timeout);
 
-        const data = await this.makeAPICall(`9f05da9b`, event.target.value);
-        this.props.updateListHandler(event.target.value, data.Search);
+                console.log('calling debounced function now!');
+                func(...args);
+            }
+
+            clearTimeout(timeout);
+            timeout = setTimeout(runMyFunc, delay);
+        }
     }
 
-    // async searchButtonClicked() {
-    //     console.log("button clicked");
-
-    //     const data = await this.makeAPICall(`9f05da9b`, this.state.searchText);
-
-    //     console.log(data);
-
-    //     this.props.updateListHandler(this.state.searchText, data.Search);
-    // }
+    searchTextDidChange(event) {
+        this.makeAPICall(`9f05da9b`, event.target.value);
+    }
 
     async makeAPICall(apiKey, searchParam) {
         const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchParam}`;
@@ -45,7 +48,9 @@ class SearchBar extends React.Component {
 
         const jsonData = await response.json();
 
-        return jsonData;
+        this.props.updateListHandler(searchParam, jsonData.Search);
+
+        return;
     }
 
     render() {
@@ -56,7 +61,7 @@ class SearchBar extends React.Component {
                         <Form.Control
                             size="lg"
                             placeholder="🔎  Search for Movies"
-                            onChange={this.searchTextDidChange.bind(this)}/>
+                            onChange={this.debouncedSearchTextDidChange}/>
                     </Form.Group>
                 </Form>
                 

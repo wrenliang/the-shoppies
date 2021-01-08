@@ -22,7 +22,7 @@ class ResultsList extends React.Component {
                         movie={movie}
                         addNominationHandler={this.props.addNominationHandler}
                         nominationList={this.props.nominationList}
-                        index={index}>
+                        key={index}>
                     </ResultItem>
                 )
             });

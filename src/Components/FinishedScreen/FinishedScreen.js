@@ -14,7 +14,7 @@ class FinishedScreen extends React.Component {
     nominatedMovies = () => {
         const list = this.props.nominationMovies.map((movie, index) => {
            return (
-               <div className="FinishedScreenMovieItem">
+               <div className="FinishedScreenMovieItem" key={index}>
                    <img className="FinishedScreenMovieItemImage" src={movie.Poster} alt={`Movie Poster`}></img>
                    <h4 className="FinishedScreenMovieItemText">{`${movie.Title} (${movie.Year})`}</h4>
                </div>

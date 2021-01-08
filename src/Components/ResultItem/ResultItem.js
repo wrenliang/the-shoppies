@@ -67,7 +67,10 @@ class ResultItem extends React.Component {
             }
 
             return (
-                <div className="ResultItem" style={resultItemStyle} onMouseEnter={() => this.toggleHover(true)} onMouseLeave={() => this.toggleHover(false)}>
+                <div className="ResultItem" 
+                    style={resultItemStyle} 
+                    onMouseEnter={() => this.toggleHover(true)}
+                    onMouseLeave={() => this.toggleHover(false)}>
                     <div className="ResultItemBackgroundImage" style={backgroundImageStyle}></div>
                     <div className="ResultItemInfo" style={itemInfoStyle}>
                         <h1>{`${this.props.movie.Title} (${this.props.movie.Year})`}</h1>
@@ -90,7 +93,10 @@ class ResultItem extends React.Component {
             }
 
             return (
-                <div className="ResultItem" style={resultItemStyle} onMouseEnter={() => this.toggleHover(true)} onMouseLeave={() => this.toggleHover(false)}>
+                <div className="ResultItem" 
+                    style={resultItemStyle}
+                    onMouseEnter={() => this.toggleHover(true)}
+                    onMouseLeave={() => this.toggleHover(false)}>
                 </div>
             );
         }
